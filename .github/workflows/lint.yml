@@ -6,6 +6,8 @@ on:
   pull_request:
 
 jobs:
+  # It would be great if we could use hadolint/hadolint-action for this, but it doesn't support globbing,
+  # which is a feature we need. The solution is to just pull down the binary and run it ourselves.
   lint_dockerfiles:
     runs-on: ubuntu-latest
     steps:
@@ -16,6 +18,7 @@ jobs:
           chmod +x /usr/local/bin/hadolint
       - name: Lint Dockerfiles
         run: hadolint ./**/Dockerfile*
+
   lint_actions_workflows:
     runs-on: ubuntu-latest
     steps:
