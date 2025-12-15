@@ -1,0 +1,5 @@
+.git*
+*.md
+justfile
+.pre-commit-config.yaml
+.yamlfmt.yaml
