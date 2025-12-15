@@ -14,12 +14,14 @@ WORKDIR ${HOME}
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen && \
     command -v .venv/bin/aqt && .venv/bin/aqt version
+ENV PATH=${HOME}/.venv/bin:${PATH}
 
 # Install the desktop Qt kits.
 # We use 5.15.0 for Qt5 and 6.8.0 for Qt6 because these are the latest LTS versions.
+# Note that the installations are performed in separate RUN commands because the layers are so big;
+# it's much more feasible for each layer to contain one Qt installation.
+COPY qt-desktop-installer.py ./
 ENV QT_PATH=/opt/Qt
-RUN .venv/bin/aqt install-qt linux desktop 5.15.0 -O ${QT_PATH} -m all
-# These commands need to be broken up because both layers are huge by themselves.
-# Combining into one layer is just too big.
+RUN python3 qt-desktop-installer.py 5 ${QT_PATH}
 # hadolint ignore=DL3059
-RUN .venv/bin/aqt install-qt linux desktop 6.8.0 -O ${QT_PATH} -m all
+RUN python3 qt-desktop-installer.py 6 ${QT_PATH}
