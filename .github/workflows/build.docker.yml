@@ -2,8 +2,7 @@ name: Build Docker Images
 
 on:
   push:
-    # TODO: change to main
-    branches: [2-build-create-docker-image-with-desktop-qt-installations]
+    branches: [main]
     paths: ['**/Dockerfile*']
   workflow_dispatch:
 

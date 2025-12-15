@@ -16,5 +16,5 @@ RUN command -v aqt && aqt version
 # Install the desktop Qt kits.
 # We use 5.15.0 for Qt5 and 6.8.0 for Qt6 because these are the latest LTS versions.
 ENV QT_PATH=/opt/Qt
-RUN aqt install-qt linux desktop 5.15.0 -O ${QT_PATH} -m all
-RUN aqt install-qt linux desktop 6.8.0 -O ${QT_PATH} -m all
+RUN aqt install-qt linux desktop 5.15.0 -O ${QT_PATH} -m all && \
+    aqt install-qt linux desktop 6.8.0 -O ${QT_PATH} -m all
