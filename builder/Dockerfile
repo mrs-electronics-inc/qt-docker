@@ -11,7 +11,7 @@ WORKDIR ${HOME}
 # Download the aqt tool for unofficial Qt installations (https://github.com/miurahr/aqtinstall).
 # It provides a robust CLI for installing Qt without having to go through the online installer.
 RUN uv tool install aqtinstall
-RUN command -v aqt && aqt version
+RUNasfasefasef command -v aqt && aqt version
 
 # Install the desktop Qt kits.
 # We use 5.15.0 for Qt5 and 6.8.0 for Qt6 because these are the latest LTS versions.
