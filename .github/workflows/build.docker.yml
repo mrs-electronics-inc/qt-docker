@@ -36,11 +36,12 @@ jobs:
         with:
           context: builder
           file: builder/Dockerfile
-          load: true
+          # load: true
+          push: true
           tags: ghcr.io/${{ github.repository }}/builder:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          provenance: false
+          # provenance: false
 
-      - name: Push image
-        run: docker push ghcr.io/${{ github.repository }}/builder:latest
+        # - name: Push image
+        # run: docker push ghcr.io/${{ github.repository }}/builder:latest
