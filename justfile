@@ -5,4 +5,4 @@ builder:
 
 lint:
     @command -v actionlint >/dev/null && actionlint
-    @command -v hadolint >/dev/null && hadolint **/Dockerfile*
+    @command -v hadolint >/dev/null && hadolint $(find . -name "Dockerfile*" -type f)

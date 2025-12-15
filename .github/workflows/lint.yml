@@ -6,16 +6,23 @@ on:
   pull_request:
 
 jobs:
-  hadolint:
+  lint_dockerfiles:
     runs-on: ubuntu-latest
-    container: jdxcode/mise
     steps:
       - uses: actions/checkout@v4
-      - name: Lint Dockerfiles
+      - name: Install hadolint
         run: |
-          mise use -g hadolint
-          find . -name "Dockerfile*" -type f -exec hadolint {} \;
-  actionlint:
+          curl -sL https://github.com/hadolint/hadolint/releases/download/v2.14.0/hadolint-Linux-x86_64 -o /usr/local/bin/hadolint
+          chmod +x /usr/local/bin/hadolint
+      - name: Lint Dockerfiles
+        # run: |
+        #   failed=0
+        #   for file in $(find . -name "Dockerfile*" -type f); do
+        #     hadolint "$file" || failed=1
+        #   done
+        #   exit $failed
+        run: hadolint ./**/Dockerfile*
+  lint_actions_workflows:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
