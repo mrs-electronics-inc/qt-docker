@@ -8,10 +8,13 @@ on:
 jobs:
   hadolint:
     runs-on: ubuntu-latest
+    container: jdxcode/mise
     steps:
       - uses: actions/checkout@v4
       - name: Lint Dockerfiles
-        run: find . -name "Dockerfile*" -type f -exec docker run --rm -i hadolint/hadolint < {} \;
+        run: |
+          mise install hadolint
+          find . -name "Dockerfile*" -type f -exec hadolint {} \;
   actionlint:
     runs-on: ubuntu-latest
     steps:
