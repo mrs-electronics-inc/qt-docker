@@ -2,7 +2,6 @@ FROM python:3.12-slim-trixie
 # Start from a base image, then add the UV package manager (https://github.com/astral-sh/uv).
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 RUN command -v uv && uv --version
-RUN sudo apt install just
 
 # Set up the root user's PATH to ensure UV installs tools to a valid location.
 ENV HOME=/root
