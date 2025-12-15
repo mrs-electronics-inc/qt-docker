@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Lint Dockerfiles
         run: |
-          mise install hadolint
+          mise use -g hadolint
           find . -name "Dockerfile*" -type f -exec hadolint {} \;
   actionlint:
     runs-on: ubuntu-latest
