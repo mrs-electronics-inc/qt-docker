@@ -15,7 +15,7 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
-      - uses: jlumbroso/free-disk-space-ubuntu@main
+      - uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: false
           android: true
