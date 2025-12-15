@@ -1,13 +1,14 @@
-name: Build Docker Image
+name: Build Docker Images
 
 on:
-  # push:
-  #   branches: [main]
-  #   paths: [Dockerfile]
+  push:
+    # TODO: change to main
+    branches: [2-build-create-docker-image-with-desktop-qt-installations]
+    paths: ['**/Dockerfile*']
   workflow_dispatch:
 
 jobs:
-  build:
+  builder:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,5 +24,6 @@ jobs:
       - uses: docker/build-push-action@v5
         with:
           context: .
+          file: builder/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/qt:latest
+          tags: ghcr.io/${{ github.repository }}/builder:latest
