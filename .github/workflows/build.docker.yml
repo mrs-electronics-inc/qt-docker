@@ -33,6 +33,7 @@ jobs:
           # Build the image then push it to the registry.
           push: true
           tags: ghcr.io/${{ github.repository }}/builder:latest
+          provenance: false
           # Cache layers in the GHA Cache.
           # This results in huge improvements in build times.
           cache-from: type=gha
