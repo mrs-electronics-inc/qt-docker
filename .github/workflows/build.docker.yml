@@ -7,7 +7,6 @@ name: Build Docker Images
 on:
   push:
     branches: [main]
-  pull_request: # DELETEME
   workflow_dispatch:
 
 jobs:
@@ -29,11 +28,14 @@ jobs:
         with:
           context: builder
           file: builder/Dockerfile
-          platforms: linux/amd64
           # Build the image then push it to the registry.
           push: true
           tags: ghcr.io/${{ github.repository }}/builder:latest
-          provenance: false
+          # Provenance is important for this image because it will be the basis for all the other images.
+          provenance: true
+          # SBOM isn't really necessary for this image because it's private to this repo.
+          sbom: false
+          platforms: linux/amd64
           # Cache layers in the GHA Cache.
           # This results in huge improvements in build times.
           cache-from: type=gha
