@@ -9,7 +9,7 @@ jobs:
   # It would be great if we could use hadolint/hadolint-action for this, but it doesn't support globbing,
   # which is a feature we need. The solution is to just pull down the binary and run it ourselves.
   lint_dockerfiles:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Install hadolint

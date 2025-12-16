@@ -33,11 +33,35 @@ def build_install_command(qt_version: str, output_dir: Path) -> tuple[list[str],
     """
     if qt_version == "5":
         version_string = "5.15.0"
-        cmd = ["aqt", "install-qt", "linux", "desktop", version_string, "-O", str(output_dir)]
+        cmd = [
+            "aqt",
+            "install-qt",
+            "linux",
+            "desktop",
+            version_string,
+            "-O",
+            str(output_dir),
+        ]
     else:  # qt_version == "6"
         version_string = "6.8.0"
-        modules = ["qtlocation", "qtmultimedia", "qtpositioning", "qtsensors", "qtserialbus", "qtserialport"]
-        cmd = ["aqt", "install-qt", "linux", "desktop", version_string, "-O", str(output_dir), "-m"] + modules
+        modules = [
+            "qtlocation",
+            "qtmultimedia",
+            "qtpositioning",
+            "qtsensors",
+            "qtserialbus",
+            "qtserialport",
+        ]
+        cmd = [
+            "aqt",
+            "install-qt",
+            "linux",
+            "desktop",
+            version_string,
+            "-O",
+            str(output_dir),
+            "-m",
+        ] + modules
 
     return cmd, version_string
 
@@ -73,7 +97,14 @@ def cleanup_executables(qt_dir: Path, qt_version: str) -> None:
     if qt_version == "5":
         keep_executables = {"qmake", "qtdiag", "qtpaths", "qt.conf"}
     else:  # qt_version == "6"
-        keep_executables = {"qmake6", "qt-cmake", "qt-cmake-create", "qtdiag6", "qtpaths6", "qt.conf"}
+        keep_executables = {
+            "qmake6",
+            "qt-cmake",
+            "qt-cmake-create",
+            "qtdiag6",
+            "qtpaths6",
+            "qt.conf",
+        }
 
     bin_dir = qt_dir / "bin"
     if bin_dir.exists():
