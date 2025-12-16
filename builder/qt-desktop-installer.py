@@ -95,7 +95,15 @@ def cleanup_executables(qt_dir: Path, qt_version: str) -> None:
     Qt 6 keeps: qmake6, qt-cmake, qt-cmake-create, qtdiag6, qtpaths6, qt.conf
     """
     if qt_version == "5":
-        keep_executables = {"qmake", "qtdiag", "qtpaths", "qt.conf"}
+        keep_executables = {
+            "qmake",
+            "qtdiag",
+            "qtpaths",
+            "qt.conf",
+            "rcc",
+            "moc",
+            "uic",
+        }
     else:  # qt_version == "6"
         keep_executables = {
             "qmake6",
@@ -104,6 +112,9 @@ def cleanup_executables(qt_dir: Path, qt_version: str) -> None:
             "qtdiag6",
             "qtpaths6",
             "qt.conf",
+            "rcc",
+            "moc",
+            "uic",
         }
 
     bin_dir = qt_dir / "bin"
