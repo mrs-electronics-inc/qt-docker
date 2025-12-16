@@ -88,43 +88,6 @@ def cleanup_directories(qt_dir: Path) -> None:
             shutil.rmtree(path)
 
 
-def cleanup_executables(qt_dir: Path, qt_version: str) -> None:
-    """Remove unnecessary executables, keeping only those needed for CI compilation testing.
-
-    Qt 5 keeps: qmake, qtdiag, qtpaths, qt.conf
-    Qt 6 keeps: qmake6, qt-cmake, qt-cmake-create, qtdiag6, qtpaths6, qt.conf
-    """
-    if qt_version == "5":
-        keep_executables = {
-            "qmake",
-            "qtdiag",
-            "qtpaths",
-            "qt.conf",
-            "rcc",
-            "moc",
-            "uic",
-        }
-    else:  # qt_version == "6"
-        keep_executables = {
-            "qmake6",
-            "qt-cmake",
-            "qt-cmake-create",
-            "qtdiag6",
-            "qtpaths6",
-            "qt.conf",
-            "rcc",
-            "moc",
-            "uic",
-            "qmldom",
-        }
-
-    bin_dir = qt_dir / "bin"
-    if bin_dir.exists():
-        for item in bin_dir.iterdir():
-            if item.is_file() and item.name not in keep_executables:
-                item.unlink()
-
-
 def cleanup_tools(output_dir: Path) -> None:
     """Remove the Tools directory (contains Conan package manager, not needed for this image)."""
     tools_dir = output_dir / "Tools"
@@ -144,7 +107,6 @@ def main() -> None:
     # Verify and cleanup
     qt_dir = verify_installation(output_dir, version_string)
     cleanup_directories(qt_dir)
-    cleanup_executables(qt_dir, qt_version)
     cleanup_tools(output_dir)
 
 
