@@ -115,6 +115,7 @@ def cleanup_executables(qt_dir: Path, qt_version: str) -> None:
             "rcc",
             "moc",
             "uic",
+            "qmldom",
         }
 
     bin_dir = qt_dir / "bin"
