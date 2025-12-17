@@ -1,0 +1,26 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # It would be great if we could use hadolint/hadolint-action for this, but it doesn't support globbing,
+  # which is a feature we need. The solution is to just pull down the binary and run it ourselves.
+  lint_dockerfiles:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install hadolint
+        run: |
+          curl -sL https://github.com/hadolint/hadolint/releases/download/v2.14.0/hadolint-Linux-x86_64 -o /usr/local/bin/hadolint
+          chmod +x /usr/local/bin/hadolint
+      - name: Lint Dockerfiles
+        run: hadolint ./**/Dockerfile*
+
+  lint_actions_workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: raven-actions/actionlint@v2
