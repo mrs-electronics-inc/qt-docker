@@ -56,3 +56,7 @@ jobs:
           provenance: true
           sbom: true
           platforms: linux/amd64
+          # Cache layers in the GHA Cache.
+          # This can result in huge improvements in build times.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -33,3 +33,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # This is done in the same RUN to avoid layer bloat.
     && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/* \
     && rm -rf /usr/share/doc/* /usr/share/man/* /usr/share/info/*
+
+# Add image metadata.
+LABEL org.opencontainers.image.source="https://github.com/mrs-electronics-inc/qt-docker"
+LABEL org.opencontainers.image.description="Qt Docker base image"
+LABEL org.opencontainers.image.licenses=MIT
