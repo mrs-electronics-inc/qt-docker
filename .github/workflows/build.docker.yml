@@ -8,6 +8,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # TODO: remove this
+  pull_request:
 
 jobs:
   # This job builds the private images that are used as the basis for creating the public images.
