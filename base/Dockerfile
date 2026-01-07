@@ -37,4 +37,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Add image metadata.
 LABEL org.opencontainers.image.source="https://github.com/mrs-electronics-inc/qt-docker"
 LABEL org.opencontainers.image.description="Qt Docker base image"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.licenses="MIT"
