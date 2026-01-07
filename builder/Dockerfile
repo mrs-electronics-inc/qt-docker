@@ -27,6 +27,6 @@ RUN python3 qt-desktop-installer.py 5 ${QT_PATH}
 RUN python3 qt-desktop-installer.py 6 ${QT_PATH}
 
 # Add image metadata.
-LABEL org.opencontainers.image.source=https://github.com/mrs-electronics-inc/qt-docker
+LABEL org.opencontainers.image.source="https://github.com/mrs-electronics-inc/qt-docker"
 LABEL org.opencontainers.image.description="Qt Docker builder image"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.licenses="MIT"

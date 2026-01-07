@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Build the "builder" image.
-  builder:
+  # This job builds the private images that are used as the basis for creating the public images.
+  bases:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -24,6 +24,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build the "builder" image.
       - uses: docker/build-push-action@v5
         with:
           context: builder
@@ -31,12 +33,29 @@ jobs:
           # Build the image then push it to the registry.
           push: true
           tags: ghcr.io/${{ github.repository }}/builder:latest
-          # Provenance is important for this image because it will be the basis for all the other images.
+          # Provenance is important for this image because its layers will be used as core components of all other images.
           provenance: true
           # SBOM isn't really necessary for this image because it's private to this repo.
           sbom: false
           platforms: linux/amd64
           # Cache layers in the GHA Cache.
-          # This results in huge improvements in build times.
+          # This can result in huge improvements in build times.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Build the "base" image.
+      - uses: docker/build-push-action@v5
+        with:
+          context: base
+          file: base/Dockerfile
+          # Build the image then push it to the registry.
+          push: true
+          tags: ghcr.io/${{ github.repository }}/base:latest
+          # Provenance and SBOM are important for this image because it will be the basis for all public images.
+          provenance: true
+          sbom: true
+          platforms: linux/amd64
+          # Cache layers in the GHA Cache.
+          # This can result in huge improvements in build times.
           cache-from: type=gha
           cache-to: type=gha,mode=max
