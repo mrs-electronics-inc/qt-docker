@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  # This job builds the private images that are used as the basis for creating the public images.
   bases:
     runs-on: ubuntu-24.04
     permissions:
@@ -43,7 +44,6 @@ jobs:
           cache-to: type=gha,mode=max
 
       # Build the "base" image.
-      # The GHA Cache is not used because the image doesn't have much that can realistically be cached.
       - uses: docker/build-push-action@v5
         with:
           context: base
@@ -51,7 +51,7 @@ jobs:
           # Build the image then push it to the registry.
           push: true
           tags: ghcr.io/${{ github.repository }}/base:latest
-          # Provenance and SBOM are important for this image because it will be the basis for all the other images.
+          # Provenance and SBOM are important for this image because it will be the basis for all public images.
           provenance: true
           sbom: true
           platforms: linux/amd64
