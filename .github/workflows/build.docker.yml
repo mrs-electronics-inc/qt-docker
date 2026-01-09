@@ -25,37 +25,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Build the "builder" image.
-      - uses: docker/build-push-action@v5
+      - uses: docker/bake-action@v5
         with:
-          context: infra/builder
-          file: infra/builder/Dockerfile
-          # Build the image then push it to the registry.
+          targets: infra
           push: true
-          tags: ghcr.io/${{ github.repository }}/builder:latest
-          # Provenance is important for this image because its layers will be used as core components of all other images.
-          provenance: true
-          # SBOM isn't really necessary for this image because it's private to this repo.
-          sbom: false
-          platforms: linux/amd64
-          # Cache layers in the GHA Cache.
-          # This can result in huge improvements in build times.
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      # Build the "base" image.
-      - uses: docker/build-push-action@v5
-        with:
-          context: infra/base
-          file: infra/base/Dockerfile
-          # Build the image then push it to the registry.
-          push: true
-          tags: ghcr.io/${{ github.repository }}/base:latest
-          # Provenance and SBOM are important for this image because it will be the basis for all public images.
-          provenance: true
-          sbom: true
-          platforms: linux/amd64
-          # Cache layers in the GHA Cache.
-          # This can result in huge improvements in build times.
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        env:
+          BUILD_ENV: prod

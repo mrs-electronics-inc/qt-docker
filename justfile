@@ -2,19 +2,26 @@
 default:
     @just --list
 
-# Run the local build of the builder image
-builder-run: builder
-    docker run --rm -it qt-docker/builder:local /bin/bash
-# Create a local build of the builder image
-builder:
-    cd infra/builder/ && docker buildx build -t qt-docker/builder:local --progress=plain .
+# Build all infra images (local)
+build-infra:
+    docker buildx bake --load infra
 
-# Run the local build of the base image
-base-run: base
-    docker run --rm -it qt-docker/base:local /bin/bash
-# Create a local build of the base image
-base:
-    cd infra/base && docker buildx build -t qt-docker/base:local --progress=plain .
+# Build the builder image (local)
+build-builder:
+    docker buildx bake --load builder
+
+# Build the base image (local)
+build-base:
+    docker buildx bake --load base
+
+# Run the builder image interactively
+run-builder: build-builder
+    docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/builder:local /bin/bash
+
+# Run the base image interactively
+run-base: build-base
+    docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/base:local /bin/bash
+
 
 # Lint all source code
 lint:
