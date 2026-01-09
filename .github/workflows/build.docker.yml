@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  # This job builds the private images that are used as the basis for creating the public images.
-  bases:
+  # This job builds the private infrastructure images that are used as the basis for creating the public images.
+  infra:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -28,8 +28,8 @@ jobs:
       # Build the "builder" image.
       - uses: docker/build-push-action@v5
         with:
-          context: builder
-          file: builder/Dockerfile
+          context: infra/builder
+          file: infra/builder/Dockerfile
           # Build the image then push it to the registry.
           push: true
           tags: ghcr.io/${{ github.repository }}/builder:latest
@@ -46,8 +46,8 @@ jobs:
       # Build the "base" image.
       - uses: docker/build-push-action@v5
         with:
-          context: base
-          file: base/Dockerfile
+          context: infra/base
+          file: infra/base/Dockerfile
           # Build the image then push it to the registry.
           push: true
           tags: ghcr.io/${{ github.repository }}/base:latest

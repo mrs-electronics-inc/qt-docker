@@ -4,8 +4,10 @@ This repository contains Docker images with Qt installations for CI/CD pipelines
 
 ## Project Structure
 
-- `base/` - Base Docker image with Debian + Qt runtime dependencies
-- `builder/` - Builder image that installs Qt 5.15.0 and Qt 6.8.0 using `aqt`
+- `infra/` - Private infrastructure images
+  - `base/` - Base Docker image with Debian + Qt runtime dependencies
+  - `builder/` - Builder image that installs Qt 5.15.0 and Qt 6.8.0 using `aqt`
+- `public/` - Public product images (neuralplex, mconn, fusion, all)
 - `.github/workflows/` - CI/CD workflows for building and linting
 
 ## Common Commands
@@ -35,8 +37,8 @@ Pre-commit hooks are configured in `.pre-commit-config.yaml`.
 ## Technologies
 
 - **Docker**: All images use pinned versions/SHAs for reproducibility
-- **Python**: Used in `builder/qt-desktop-installer.py` for Qt installation
-- **uv**: Python package manager (locked deps in `builder/uv.lock`)
+- **Python**: Used in `infra/builder/qt-desktop-installer.py` for Qt installation
+- **uv**: Python package manager (locked deps in `infra/builder/uv.lock`)
 - **aqt**: Qt installer tool (`aqtinstall` package)
 
 ## Key Conventions
