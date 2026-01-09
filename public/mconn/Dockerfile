@@ -1,4 +1,4 @@
-FROM ghcr.io/mrs-electronics/qt-docker/base:latest
+FROM ghcr.io/mrs-electronics-inc/qt-docker/base:latest
 
 # Add image metadata.
 LABEL org.opencontainers.image.source="https://github.com/mrs-electronics-inc/qt-docker"

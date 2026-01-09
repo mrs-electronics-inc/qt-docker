@@ -19,7 +19,7 @@ This table summarizes what each public image includes:
 | `mrs-electronics-inc/qt-docker/neuralplex` | ✅ | X | X | ✅ | X |
 | `mrs-electronics-inc/qt-docker/mconn` | X | ✅ | ✅ | X | ✅ |
 | `mrs-electronics-inc/qt-docker/fusion` | X | X | ✅ | X | ✅ |
-| `mrs-electronics-inc/qt-docker/all` | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `mrs-electronics-inc/qt-docker/full` | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 > [!NOTE]
 >

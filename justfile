@@ -2,23 +2,37 @@
 default:
     @just --list
 
+# Build all images (local)
+build:
+    docker buildx bake --load
+
+
+# Build all public images (local)
+build-public:
+    docker buildx bake --load public
+
+# Run the full public image interactively
+run-full: build-public
+    docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/full:local /bin/bash
+
+
 # Build all infra images (local)
 build-infra:
     docker buildx bake --load infra
 
-# Build the builder image (local)
+# Build the builder infra image (local)
 build-builder:
     docker buildx bake --load builder
 
-# Build the base image (local)
+# Build the base infra image (local)
 build-base:
     docker buildx bake --load base
 
-# Run the builder image interactively
+# Run the builder infra image interactively
 run-builder: build-builder
     docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/builder:local /bin/bash
 
-# Run the base image interactively
+# Run the base infra image interactively
 run-base: build-base
     docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/base:local /bin/bash
 

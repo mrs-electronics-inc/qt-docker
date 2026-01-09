@@ -31,7 +31,7 @@ variable "BUILD_ENV" {
 
 # Default group builds all infra images
 group "default" {
-  targets = ["infra"]
+  targets = ["infra", "public"]
 }
 
 # Private infrastructure images used to build public images
@@ -43,9 +43,23 @@ group "infra" {
 
 # Common configuration inherited by all image targets
 target "_common" {
+  dockerfile = "Dockerfile"
   platforms = ["linux/amd64"]
   # Production builds include provenance and SBOM attestations for supply chain security
   attest = BUILD_ENV == "prod" ? ["type=provenance,mode=max", "type=sbom"] : []
+}
+
+# --- Public images ---
+
+# This matrix target will build all of the public images at once.
+target "public" {
+  inherits = [ "_common" ]
+  name = tgt
+  matrix = {
+    "tgt" = [ "full" ]
+  }
+  context = "public/${tgt}"
+  tags = ["${REGISTRY}/${tgt}:${BUILD_ENV == "prod" ? "latest" : "local"}"]
 }
 
 # --- Infra images ---
@@ -55,7 +69,6 @@ target "_common" {
 target "builder" {
   inherits   = ["_common"]
   context    = "infra/builder"
-  dockerfile = "Dockerfile"
   tags       = ["${REGISTRY}/builder:${BUILD_ENV == "prod" ? "latest" : "local"}"]
 }
 
@@ -64,6 +77,5 @@ target "builder" {
 target "base" {
   inherits   = ["_common"]
   context    = "infra/base"
-  dockerfile = "Dockerfile"
   tags       = ["${REGISTRY}/base:${BUILD_ENV == "prod" ? "latest" : "local"}"]
 }
