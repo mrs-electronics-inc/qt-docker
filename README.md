@@ -12,7 +12,7 @@ Custom Docker images with Qt installations for use in CI/CD pipelines.
 
 This project exports various Docker images that can be used for compiling Qt/C++ projects for MRS products. There are a few different images that target specific products, along with an image that contains toolchains for all products.
 
-This table summarizes what each image includes:
+This table summarizes what each public image includes:
 
 | Image | Yocto Qt6 | Yocto Qt5 | Buildroot Qt5 | Desktop Qt6 | Desktop Qt5 |
 | --- | --- | --- | --- | --- | --- |
@@ -23,4 +23,4 @@ This table summarizes what each image includes:
 
 > [!NOTE]
 >
-> The `mrs-electronics/qt-docker/builder` image is private and is meant only for use when creating the user-facing images. It will contain all of the required Qt toolchains.
+> The `mrs-electronics/qt-docker/builder` and `mrs-electronics/qt-docker/builder` images are private and are only meant to be used during creation of the user-facing images.
