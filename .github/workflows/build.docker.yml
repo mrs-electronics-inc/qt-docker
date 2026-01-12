@@ -30,6 +30,10 @@ jobs:
         with:
           targets: infra
           push: true
+          # Use the GHA cache to speed things up
+          set: |
+            *.cache-from=type=gha
+            *.cache-to=type=gha,mode=max
         env:
           BUILD_ENV: prod
 
@@ -54,5 +58,9 @@ jobs:
         with:
           targets: public
           push: true
+          # Use the GHA cache to speed things up
+          set: |
+            *.cache-from=type=gha
+            *.cache-to=type=gha,mode=max
         env:
           BUILD_ENV: prod
