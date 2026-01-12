@@ -56,7 +56,7 @@ target "public" {
   inherits = [ "_common" ]
   name = tgt
   matrix = {
-    "tgt" = [ "full" ]
+    "tgt" = [ "full", "neuralplex", "mconn", "fusion" ]
   }
   context = "public/${tgt}"
   tags = ["${REGISTRY}/${tgt}:${BUILD_ENV == "prod" ? "latest" : "local"}"]

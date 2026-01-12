@@ -15,6 +15,18 @@ build-public:
 run-full: build-public
     docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/full:local /bin/bash
 
+# Run the NeuralPlex image interactively
+run-neuralplex: build-public
+    docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/neuralplex:local /bin/bash
+
+# Run the MConn image interactively
+run-mconn: build-public
+    docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/mconn:local /bin/bash
+
+# Run the FUSION public image interactively
+run-fusion: build-public
+    docker run --rm -it ghcr.io/mrs-electronics-inc/qt-docker/fusion:local /bin/bash
+
 
 # Build all infra images (local)
 build-infra:
