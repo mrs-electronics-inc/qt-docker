@@ -1,0 +1,4 @@
+ignored:
+  # Do not check https://github.com/hadolint/hadolint/wiki/DL3007.
+  # We intentionally use the "latest" tag for pulling internal images.
+  - DL3007
