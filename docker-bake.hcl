@@ -6,6 +6,7 @@
 # Usage:
 #   docker buildx bake              # Build all images (defaults to local)
 #   docker buildx bake infra        # Build only infra images
+#   docker buildx bake public       # Build only public images
 #   docker buildx bake builder      # Build a specific image
 #   BUILD_ENV=prod docker buildx bake --push  # Build and push production images
 
