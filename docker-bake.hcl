@@ -29,7 +29,7 @@ variable "BUILD_ENV" {
 
 # --- Groups ---
 
-# Default group builds all infra images
+# Default group builds all infrastructure and public images
 group "default" {
   targets = ["infra", "public"]
 }
@@ -62,7 +62,7 @@ target "public" {
   tags = ["${REGISTRY}/${tgt}:${BUILD_ENV == "prod" ? "latest" : "local"}"]
 }
 
-# --- Infra images ---
+# --- Infrastructure images ---
 
 # Builder image: Contains Qt SDK installations (Qt 5.15.0 and Qt 6.8.0)
 # Used as a source for COPY --from in public images
