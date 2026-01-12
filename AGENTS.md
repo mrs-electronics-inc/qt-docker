@@ -7,7 +7,8 @@ This repository contains Docker images with Qt installations for CI/CD pipelines
 - `infra/` - Private infrastructure images
   - `base/` - Base Docker image with Debian + Qt runtime dependencies
   - `builder/` - Builder image that installs Qt 5.15.0 and Qt 6.8.0 using `aqt`
-- `public/` - Public product images (neuralplex, mconn, fusion, all)
+- `public/` - Public product images (full, neuralplex, mconn, fusion)
+- `docker-bake.hcl` - Docker Bake configuration for building all images
 - `.github/workflows/` - CI/CD workflows for building and linting
 
 ## Common Commands
@@ -15,13 +16,17 @@ This repository contains Docker images with Qt installations for CI/CD pipelines
 Use `just` recipes for development tasks:
 
 ```bash
-just              # List all available recipes
-just builder      # Build the builder image locally
-just builder-run  # Build and run builder image interactively
-just base         # Build the base image locally
-just base-run     # Build and run base image interactively
-just lint         # Lint all source code (actionlint, hadolint, ruff)
-just format       # Format YAML and Python files
+just                # List all available recipes
+just build          # Build all images locally
+just build-infra    # Build all infra images locally
+just build-public   # Build all public images locally
+just build-builder  # Build the builder image locally
+just build-base     # Build the base image locally
+just run-builder    # Build and run builder image interactively
+just run-base       # Build and run base image interactively
+just run-full       # Build and run full public image interactively
+just lint           # Lint all source code (actionlint, hadolint, ruff)
+just format         # Format YAML and Python files
 ```
 
 ## Linting
@@ -37,6 +42,7 @@ Pre-commit hooks are configured in `.pre-commit-config.yaml`.
 ## Technologies
 
 - **Docker**: All images use pinned versions/SHAs for reproducibility
+- **Docker Bake**: Used for building multiple images with shared configuration
 - **Python**: Used in `infra/builder/qt-desktop-installer.py` for Qt installation
 - **uv**: Python package manager (locked deps in `infra/builder/uv.lock`)
 - **aqt**: Qt installer tool (`aqtinstall` package)
