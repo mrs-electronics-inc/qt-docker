@@ -5,6 +5,7 @@ FROM debian@sha256:e899040a73d36e2b36fa33216943539d9957cba8172b858097c2cabcdb20a
 # Note that for many of these, explicit version pins are listed.
 # However, for any packages with frequent updates, such as libglib2.0-dev,
 # no explicit version pin is given to avoid constantly requiring updates.
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # Required build tools for any C++ project
     cmake=3.25.1-1 \
