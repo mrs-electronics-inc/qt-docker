@@ -8,7 +8,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  pull_request: # DELETEME
 
 jobs:
   # This job builds the private infrastructure images that are used as the basis for creating the public images.
